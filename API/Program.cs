@@ -1,4 +1,5 @@
 using API.Data;
+using API.middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,8 @@ builder.Services.AddCors();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -27,7 +30,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors(opt => 
 {
     opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
-});
+}); 
 
 app.UseAuthorization();
 
@@ -48,3 +51,4 @@ catch (Exception ex)
 }
 
 app.Run();
+  
