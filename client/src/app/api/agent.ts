@@ -2,9 +2,10 @@ import axios, { AxiosResponse } from "axios";
 
 axios.defaults.baseURL = 'http://localhost:5001/api/';
 
+
 const responseBody = (response: AxiosResponse) => response.data;
 
-const request = {
+const requests = {
     get: (url: string) => axios.get(url).then(responseBody),
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
     put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
@@ -12,17 +13,19 @@ const request = {
 }
 
 const Catalog = {
-    list: () => request.get('products'),
-    details: (id: number) => request.get(`products/${id}`)
+    list: () => requests.get('products'),
+    details: (id: number) => requests.get(`products/${id}`)
 }
 
 const TestErrors = {
-    get400Error: () => request.get('buggy/bad-request'),
-    get401Error: () => request.get('buggy/unauthorised'),
-    get404Error: () => request.get('buggy/not-found'),
-    get500Error: () => request.get('buggy/server-error'),
-    getValidationError: () => request.get('buggy/validation-error'),
+    get400Error: () => requests.get('buggy/bad-request'),
+    get401Error: () => requests.get('buggy/unauthorized'), // Ensure this matches the route in your controller
+    get404Error: () => requests.get('buggy/not-found'), // Ensure this matches the route in your controller
+    get500Error: () => requests.get('buggy/server-error'), // Ensure this matches the route in your controller
+    getValidationError: () => requests.get('buggy/validation-error'), // Ensure this matches the route in your controller
 }
+
+
 
 const agent = {
     Catalog,

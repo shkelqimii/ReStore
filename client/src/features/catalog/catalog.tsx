@@ -8,13 +8,10 @@ export default function Catalog() {
       
         useEffect(() => {
             agent.Catalog.list().then(products => setProducts(products))
-
         }, [])
       
-
         return (
             <>
-
                 <ProductList products={products}/>
             </>
         );

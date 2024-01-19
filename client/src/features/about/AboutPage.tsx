@@ -5,7 +5,7 @@ export default function AboutPage() {
     return (
         <Container>
             <Typography gutterBottom variant='h2'>Errors for testing purposes</Typography>
-            <ButtonGroup fullWidth variant="contained" aria-label="outlined primary button group">
+            <ButtonGroup fullWidth variant='contained'>
                 <Button onClick={() => agent.TestErrors.get400Error()}>Test 400 Error</Button>
                 <Button onClick={() => agent.TestErrors.get401Error()}>Test 401 Error</Button>
                 <Button onClick={() => agent.TestErrors.get404Error()}>Test 404 Error</Button>
@@ -13,5 +13,5 @@ export default function AboutPage() {
                 <Button onClick={() => agent.TestErrors.getValidationError()}>Test Validation Error</Button>
             </ButtonGroup>
         </Container>
-    );
+    )
 }
