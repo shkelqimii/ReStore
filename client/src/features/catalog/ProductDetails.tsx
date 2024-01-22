@@ -3,20 +3,21 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../../app/models/product";
 import agent from "../../app/api/agent";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 
 export default function ProductDetails() {
     const {id} = useParams<{id: string}>();
-    const [product, setProducts] = useState<Product | null>(null);
+    const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
-        id && agent.Catalog.details(parseInt(id))
-            .then(response => setProducts(response))
-            .catch(error => console.log(error.response))
+        agent.Catalog.details(parseInt(id))
+            .then(response => setProduct(response))
+            .catch(error => console.log(error))
             .finally(() => setLoading(false));
     }, [id])
 
-    if (loading) return <h3>Loading...</h3>
+    if (loading) return <LoadingComponent message="loading product.." />
 
     if (!product) return <h3>Product not found</h3>
 
