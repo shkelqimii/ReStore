@@ -4,7 +4,9 @@ import ProductDetails from "../../features/catalog/ProductDetails";
 import AboutPage from "../../features/about/AboutPage";
 import ContactPage from "../../features/contact/ContactPage";
 import App from "../layout/App";
-import Catalog from "../../features/catalog/catalog";
+import Catalog from "../../features/catalog/Catalog";
+import BasketPage from "../../features/basket/BasketPage";
+import CheckoutPage from "../../features/checkout/checkoutPage";
 
 export const router = createBrowserRouter([
     {
@@ -16,6 +18,14 @@ export const router = createBrowserRouter([
             {path: 'catalog/:id', element: <ProductDetails />},
             {path: 'about', element: <AboutPage />},
             {path: 'contact', element: <ContactPage />},
+            {path: 'basket', element: <BasketPage />},
+            {path: 'checkout', element: <CheckoutPage />},
+
+             
+
+            
+
+
         ]
     }
 ])

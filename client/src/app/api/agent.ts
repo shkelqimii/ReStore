@@ -1,9 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 
-const sleep = () => new Promise(resolve => setTimeout(resolve, 0));
+const sleep = () => new Promise(resolve => setTimeout(resolve, 500))
 
 axios.defaults.baseURL = 'http://localhost:5001/api/';
+axios.defaults.withCredentials = true;
 
 // Define the ErrorResponse interface
 interface ErrorResponse {
@@ -55,11 +56,18 @@ const TestErrors = {
     get404Error: () => requests.get('buggy/not-found'),
     get500Error: () => requests.get('buggy/server-error'),
     getValidationError: () => requests.get('buggy/validation-error'),
-};
+}
+
+const Basket = {
+    get: () => requests.get('basket'),
+    addItem: (productId: number, quantity = 1) => requests.post(`basket?productId=${productId}&quantity=${quantity}`, {}),
+    removeItem: (productId: number, quantity = 1) => requests.delete(`basket?productId=${productId}&quantity=${quantity}`)
+}
 
 const agent = {
     Catalog,
-    TestErrors
+    TestErrors,
+    Basket
 };
 
 export default agent;
