@@ -1,12 +1,36 @@
 using API.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace API.Data
 {
     public static class DbInitializer
     {
-        public static void Initializer(StoreContext context)
+    public static async Task Initialize(StoreContext context, UserManager<User> userManager)
+    {
+        if (!userManager.Users.Any())
         {
-            if (context.Products.Any()) return;
+            var user = new User
+            {
+                UserName = "bob",
+                Email = "bob@test.com"
+            };
+
+            await userManager.CreateAsync(user, "Pa$$w0rd");
+            await userManager.AddToRoleAsync(user, "Member");
+
+            var admin = new User
+            {
+                UserName = "admin",
+                Email = "admin@test.com"
+            };
+
+            await userManager.CreateAsync(admin, "Pa$$w0rd");
+            await userManager.AddToRolesAsync(admin, new[] { "Admin", "Member" });
+        }
+
+        if (context.Products.Any()) return;
 
             var products = new List<Product>
             {
@@ -217,6 +241,11 @@ namespace API.Data
             }
 
             context.SaveChanges();
+        }
+
+        internal static async Task Initializer(StoreContext context, object userManager)
+        {
+            throw new NotImplementedException();
         }
     }
 }

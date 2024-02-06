@@ -1,6 +1,3 @@
-using API.DTOs;
-using Microsoft.AspNetCore.Mvc;
-
 namespace API.Entities;
 
 public class Basket
